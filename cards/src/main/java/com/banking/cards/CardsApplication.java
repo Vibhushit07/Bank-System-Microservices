@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScans;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+// https://github.com/eazybytes/microservices-with-spring-sectionwise-code
 @SpringBootApplication
 @ComponentScans({ @ComponentScan("com.banking.cards.controller") })
 @EnableJpaRepositories("com.banking.cards.repository")
