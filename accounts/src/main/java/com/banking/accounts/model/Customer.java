@@ -22,6 +22,6 @@ public class Customer {
     private String email;
     @Column(name = "mobile_number")
     private String mobileNumber;
-    @Column(name = "create_date")
+    @Column(name = "created_date")
     private LocalDate createDt;
 }
