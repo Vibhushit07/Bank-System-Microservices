@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScans;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+// https://www.educba.com/docker-push/
 @SpringBootApplication
 @ComponentScans({ @ComponentScan("com.banking.accounts.controller")})
 @EnableJpaRepositories("com.banking.accounts.repository")
