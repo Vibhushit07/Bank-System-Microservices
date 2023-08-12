@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  accounts:
+    image: vibhushit0702/vibhushit0702-accounts:latest
+    mem_limit: 700m
+    ports:
+      - "8080:8080"
+    networks:
+      - vibhushit0702-network
+
+  loans:
+    image: vibhushit0702/vibhushit0702-loans:latest
+    mem_limit: 700m
+    ports:
+      - "8081:8081"
+    networks:
+      - vibhushit0702-network
+
+  cards:
+    image: vibhushit0702/vibhushit0702-cards:latest
+    mem_limit: 700m
+    ports:
+      - "8082:8082"
+    networks:
+      - vibhushit0702-network
+
+networks:
+  vibhushit0702-network:
