@@ -14,5 +14,12 @@ spring:
     console:
       enabled: true
 
+  application:
+    name: cards
+  profiles:
+    active: default
+  config:
+    import: optional:configserver:http://localhost:8071
+
 server:
   port: 8082
