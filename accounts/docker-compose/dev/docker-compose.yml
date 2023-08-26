@@ -1,0 +1,74 @@
+version: "3.8"
+
+services:
+
+  configserver:
+    image: vibhushit0702/vibhushit0702-configserver:latest
+    mem_limit: 700m
+    ports:
+      - "8071:8071"
+    networks:
+      - vibhushit0702
+
+  accounts:
+    image: vibhushit0702/vibhushit0702-accounts:latest
+    mem_limit: 700m
+    ports:
+      - "8080:8080"
+    networks:
+      - vibhushit0702
+    depends_on:
+      - configserver
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    environment:
+      SPRING_APPLICATION_NAME: accounts
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
+
+  loans:
+    image: vibhushit0702/vibhushit0702-loans:latest
+    mem_limit: 700m
+    ports:
+      - "8081:8081"
+    networks:
+      - vibhushit0702
+    depends_on:
+      - configserver
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    environment:
+      SPRING_APPLICATION_NAME: loans
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
+
+  cards:
+    image: vibhushit0702/vibhushit0702-cards:latest
+    mem_limit: 700m
+    ports:
+      - "8082:8082"
+    networks:
+      - vibhushit0702
+    depends_on:
+      - configserver
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    environment:
+      SPRING_APPLICATION_NAME: cards
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
+
+networks:
+  vibhushit0702:
