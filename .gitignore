@@ -1,1 +1,6 @@
 .idea/
+
+eurekaserver/.mvn/
+eurekaserver/mvnw
+eurekaserver/mvnw.cmd
+eurekaserver/eurekaserver.iml
