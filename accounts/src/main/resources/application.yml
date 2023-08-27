@@ -31,7 +31,6 @@ management:
         include: "*"
     shutdown:
       enabled: true
-
   info:
     env:
       enabled: true
