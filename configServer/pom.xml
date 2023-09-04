@@ -52,7 +52,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<image>
-						<name>vibhushit0702-${project.artifactId}</name>
+						<name>vibhushit0702/vibhushit0702-${project.artifactId}</name>
 					</image>
 					<excludes>
 						<exclude>
