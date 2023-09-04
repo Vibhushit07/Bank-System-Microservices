@@ -10,6 +10,25 @@ services:
     networks:
       - vibhushit0702
 
+  eurekaserver:
+    image: vibhushit0702/vibhushit0702-eurekaserver
+    mem_limit: 700m
+    ports:
+      - "8070:8070"
+    networks:
+      - vibhushit0702
+    depends_on:
+      - configserver
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+        window: 120s
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
+
   accounts:
     image: vibhushit0702/vibhushit0702-accounts:latest
     mem_limit: 700m
@@ -19,16 +38,18 @@ services:
       - vibhushit0702
     depends_on:
       - configserver
+      - eurekaserver
     deploy:
       restart_policy:
         condition: on-failure
         delay: 5s
-        max_attempts: 3
+        max_attempts: 5
         window: 120s
     environment:
       SPRING_APPLICATION_NAME: accounts
       SPRING_PROFILES_ACTIVE: dev
       SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8070/eureka/
 
   loans:
     image: vibhushit0702/vibhushit0702-loans:latest
@@ -39,16 +60,18 @@ services:
       - vibhushit0702
     depends_on:
       - configserver
+      - eurekaserver
     deploy:
       restart_policy:
         condition: on-failure
         delay: 5s
-        max_attempts: 3
+        max_attempts: 5
         window: 120s
     environment:
       SPRING_APPLICATION_NAME: loans
       SPRING_PROFILES_ACTIVE: dev
       SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8070/eureka/
 
   cards:
     image: vibhushit0702/vibhushit0702-cards:latest
@@ -59,16 +82,18 @@ services:
       - vibhushit0702
     depends_on:
       - configserver
+      - eurekaserver
     deploy:
       restart_policy:
         condition: on-failure
         delay: 5s
-        max_attempts: 3
+        max_attempts: 5
         window: 120s
     environment:
       SPRING_APPLICATION_NAME: cards
       SPRING_PROFILES_ACTIVE: dev
       SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8070/eureka/
 
 networks:
   vibhushit0702:
