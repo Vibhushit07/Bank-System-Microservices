@@ -74,3 +74,12 @@ resilience4j:
       retryForCustomerDetails:
         maxRetryAttempts: 3
         waitDuration: 2000
+  ratelimiter:
+    configs:
+      default:
+        registerHealthIndicator: true
+    instances:
+      sayHello:
+        timeoutDuration: 5000
+        limitRefreshPeriod: 5000
+        limitForPeriod: 1
