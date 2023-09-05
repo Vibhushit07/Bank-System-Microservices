@@ -64,5 +64,13 @@ resilience4j:
       detailsForCustomerSupportApp:
         minimumNumberOfCalls: 5
         failureRateThreshold: 50
-        waitDurationInOpenStat: 30000
+        waitDurationInOpenState: 30000
         permittedNumberOfCallsInHalfOpenState: 2
+  retry:
+    configs:
+      default:
+        registerHealthIndicator: true
+    instances:
+      retryForCustomerDetails:
+        maxRetryAttempts: 3
+        waitDuration: 2000
