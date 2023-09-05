@@ -78,12 +78,12 @@ public class AccountsController {
     }
 
     @GetMapping("/sayHello")
-    @RateLimiter(name = "sayHello")
+    @RateLimiter(name = "sayHello", fallbackMethod = "sayHelloFallbackMethod")
     public String sayHello() {
         return "Hello, Welcome to Banking Microservice Application";
     }
 
-//    private String sayHelloFallbackMethod(Throwable t) {
-//        return "Hi, Welcome to Banking Microservice Application";
-//    }
+    private String sayHelloFallbackMethod(Throwable t) {
+        return "Hi, Welcome to Banking Microservice Application";
+    }
 }
