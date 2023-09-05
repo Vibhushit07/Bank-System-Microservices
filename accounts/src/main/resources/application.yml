@@ -54,3 +54,15 @@ info:
 endpoints:
   shutdown:
     enabled: true
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true
+    instances:
+      detailsForCustomerSupportApp:
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenStat: 30000
+        permittedNumberOfCallsInHalfOpenState: 2
