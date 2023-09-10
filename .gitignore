@@ -4,3 +4,9 @@ eurekaserver/.mvn/
 eurekaserver/mvnw
 eurekaserver/mvnw.cmd
 eurekaserver/eurekaserver.iml
+
+gatewayserver/.mvn
+gatewayserver/mvnw.cmd
+gatewayserver/mvnw
+gatewayserver/HELP.md
+gatewayserver/gatewayserver.iml
