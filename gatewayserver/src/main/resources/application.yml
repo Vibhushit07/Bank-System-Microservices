@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: gatewayserver
+  config:
+    import: optional:configserver:http://localhost:8071
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  info:
+    env:
+      enabled: true
+  endpoint:
+    gateway:
+      enabled: true
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8070/eureka/
+
+info:
+  app:
+    name: Gateway Server Microservice
+    description: Vibhushit's Bank Gateway Server Application
+    version: 1.0.0
+
+logging:
+  level:
+    com:
+      banking:
+        gatewayserver: DEBUG
