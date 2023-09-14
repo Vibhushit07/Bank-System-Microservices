@@ -42,3 +42,7 @@ logging:
     com:
       banking:
         gatewayserver: DEBUG
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
