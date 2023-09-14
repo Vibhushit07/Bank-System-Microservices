@@ -9,8 +9,13 @@ spring:
         locator:
           enabled: true
           lowerCaseServiceId: true
+  zipkin:
+    baseUrl: http://localhost:9411/
 
 management:
+  tracing:
+    sampling:
+      probability: 1.0
   endpoints:
     web:
       exposure:
@@ -21,6 +26,7 @@ management:
   endpoint:
     gateway:
       enabled: true
+
 
 eureka:
   instance:
@@ -42,7 +48,5 @@ logging:
     com:
       banking:
         gatewayserver: DEBUG
-
-logging:
   pattern:
     level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"

@@ -3,6 +3,13 @@ spring:
     name: eurekaserver
   config:
     import: optional:configserver:http://localhost:8071
+  zipkin:
+    baseUrl: http://localhost:9411/
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
 
 logging:
   pattern:

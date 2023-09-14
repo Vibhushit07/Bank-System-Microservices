@@ -21,10 +21,16 @@ spring:
   config:
     import: optional:configserver:http://localhost:8071
 
+  zipkin:
+    baseUrl: http://localhost:9411/
+
 server:
   port: 8082
 
 management:
+  tracing:
+    sampling:
+      probability: 1.0
   endpoints:
     web:
       exposure:
