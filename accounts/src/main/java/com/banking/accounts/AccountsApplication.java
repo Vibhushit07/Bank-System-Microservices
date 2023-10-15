@@ -13,6 +13,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 // docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
 // https://github.com/spring-cloud/spring-cloud-stream/issues/2639
 @SpringBootApplication
+/*@ComponentScans({ @ComponentScan("com.banking.accounts.controller") })
+@EnableJpaRepositories("com.banking.accounts.repository")
+@EntityScan("com.banking.accounts.model")*/
 @EnableJpaAuditing(auditorAwareRef = "auditAwareImpl")
 @OpenAPIDefinition(
 		info = @Info(
