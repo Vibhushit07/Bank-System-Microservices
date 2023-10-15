@@ -6,6 +6,7 @@ import com.banking.accounts.dto.ResponseDto;
 import com.banking.accounts.service.IAccountsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
@@ -47,12 +48,12 @@ public class AccountsController {
     }
 
     @Operation(
-            summary = "Fetch Account REST API",
+            summary = "Fetch Account Details REST API",
             description = "REST API to fetch Customer &  Account details based on mobile number"
     )
     @ApiResponse(
             responseCode = "201",
-            description = "HTTP Status CREATED"
+            description = "HTTP Status OK"
     )
     @GetMapping("/fetch")
     public ResponseEntity<CustomerDto> fetAccountDetails(@RequestParam
@@ -64,6 +65,21 @@ public class AccountsController {
                 .status(HttpStatus.OK)
                 .body(customerDto);
     }
+
+    @Operation(
+            summary = "Update Account Details REST API",
+            description = "REST API to update Customer &  Account based on account number"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                responseCode = "201",
+                description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error"
+            )
+    })
 
     @PutMapping("/update")
     public ResponseEntity<ResponseDto> updateAccountDetails(@Valid @RequestBody CustomerDto customerDto) {
