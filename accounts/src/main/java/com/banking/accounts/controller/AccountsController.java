@@ -52,7 +52,7 @@ public class AccountsController {
             description = "REST API to fetch Customer &  Account details based on mobile number"
     )
     @ApiResponse(
-            responseCode = "201",
+            responseCode = "200",
             description = "HTTP Status OK"
     )
     @GetMapping("/fetch")
@@ -72,7 +72,7 @@ public class AccountsController {
     )
     @ApiResponses({
             @ApiResponse(
-                responseCode = "201",
+                responseCode = "200",
                 description = "HTTP Status OK"
             ),
             @ApiResponse(
@@ -80,7 +80,6 @@ public class AccountsController {
                     description = "HTTP Status Internal Server Error"
             )
     })
-
     @PutMapping("/update")
     public ResponseEntity<ResponseDto> updateAccountDetails(@Valid @RequestBody CustomerDto customerDto) {
         if(iAccountsService.updateAccount(customerDto)) {
@@ -94,6 +93,21 @@ public class AccountsController {
         }
     }
 
+
+    @Operation(
+            summary = "Delete Account & Customer Details REST API",
+            description = "REST API to update Customer &  Account based on mobile number"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error"
+            )
+    })
     @DeleteMapping("/delete")
     public ResponseEntity<ResponseDto> deleteAccountDetails(@RequestParam
                                                                 @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be of 10 digits")
