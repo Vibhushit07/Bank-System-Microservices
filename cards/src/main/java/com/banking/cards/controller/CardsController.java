@@ -47,6 +47,10 @@ public class CardsController {
                 .body(iCardsService.fetchCard(mobileNumber));
     }
 
+    @Operation(
+            summary = "Update Card Details REST API",
+            description = "REST API to update Card based on card number"
+    )
     @PutMapping("/update")
     public ResponseEntity<ResponseDto> updateAccountDetails(@Valid @RequestBody CardsDto cardsDto) {
         if(iCardsService.updateCard(cardsDto)) {
