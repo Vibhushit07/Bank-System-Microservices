@@ -64,6 +64,10 @@ public class CardsController {
         }
     }
 
+    @Operation(
+            summary = "Delete Card Details REST API",
+            description = "REST API to delete Card based on mobile number"
+    )
     @DeleteMapping("/delete")
     public ResponseEntity<ResponseDto> deleteCard(@Valid @RequestParam @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits") String mobileNumber) {
         if(iCardsService.deleteCard(mobileNumber)) {
