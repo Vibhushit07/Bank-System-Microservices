@@ -36,6 +36,10 @@ public class CardsController {
                 .body(new ResponseDto(CardsConstants.STATUS_201, CardsConstants.MESSAGE_201));
     }
 
+    @Operation(
+            summary = "Fetch Card Details REST API",
+            description = "REST API to fetch Card details based on mobile number"
+    )
     @GetMapping("/fetch")
     public ResponseEntity<CardsDto> fetchCardDetails(@Valid @RequestParam @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits") String mobileNumber) {
         return ResponseEntity
