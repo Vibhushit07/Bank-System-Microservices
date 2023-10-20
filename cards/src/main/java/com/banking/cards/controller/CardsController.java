@@ -32,7 +32,7 @@ public class CardsController {
     }
 
     @GetMapping("/fetch")
-    public ResponseEntity<CardsDto> fetchCardDetails(@RequestParam String mobileNumber) {
+    public ResponseEntity<CardsDto> fetchCardDetails(@Valid @RequestParam @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits") String mobileNumber) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(iCardsService.fetchCard(mobileNumber));
