@@ -39,7 +39,7 @@ public class CardsController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<ResponseDto> deleteCard(@RequestParam String mobileNumber) {
+    public ResponseEntity<ResponseDto> deleteCard(@Valid @RequestParam @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits") String mobileNumber) {
         if(iCardsService.deleteCard(mobileNumber)) {
             return ResponseEntity
                     .status(HttpStatus.OK)
