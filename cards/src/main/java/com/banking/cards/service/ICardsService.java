@@ -19,6 +19,13 @@ public interface ICardsService {
 
     /**
      *
+     * @param cardsDto - CardsDto Object
+     * @return boolean indicating if the update of the Card details is successful or not
+     */
+    boolean updateCard(CardsDto cardsDto);
+
+    /**
+     *
      * @param mobileNumber - Input Mobile Number
      * @return boolean indicating if delete of the Card details is successful or not
      */
