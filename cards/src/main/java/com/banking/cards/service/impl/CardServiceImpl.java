@@ -5,9 +5,13 @@ import com.banking.cards.entity.Cards;
 import com.banking.cards.exception.CardAlreadyExistException;
 import com.banking.cards.repository.CardsRepository;
 import com.banking.cards.service.ICardsService;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.Random;
 
+@Service
+@AllArgsConstructor
 public class CardServiceImpl implements ICardsService {
 
     private CardsRepository cardsRepository;
@@ -34,6 +38,8 @@ public class CardServiceImpl implements ICardsService {
         newCard.setTotalLimit(CardsConstants.NEW_CARD_LIMIT);
         newCard.setAmountUsed(0);
         newCard.setAvailableAmount(CardsConstants.NEW_CARD_LIMIT);
+//        newCard.setCreatedAt(LocalDateTime.now());
+//        newCard.setCreatedBy("ABC");
         return newCard;
     }
 }
