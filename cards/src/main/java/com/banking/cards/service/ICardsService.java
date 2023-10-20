@@ -16,4 +16,11 @@ public interface ICardsService {
      * @return Card Details based on a given mobileNumber
      */
     CardsDto fetchCard(String mobileNumber);
+
+    /**
+     *
+     * @param mobileNumber - Input Mobile Number
+     * @return boolean indicating if delete of the Card details is successful or not
+     */
+    boolean deleteCard(String mobileNumber);
 }

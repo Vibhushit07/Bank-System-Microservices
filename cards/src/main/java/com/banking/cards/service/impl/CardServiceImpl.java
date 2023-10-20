@@ -55,4 +55,18 @@ public class CardServiceImpl implements ICardsService {
         );
         return CardsMapper.mapToCardsDto(cardDetails, new CardsDto());
     }
+
+    /**
+     * @param mobileNumber - Input Mobile Number
+     * @return boolean indicating if delete of the Card details is successful or not
+     */
+    @Override
+    public boolean deleteCard(String mobileNumber) {
+        Cards cardDetails = cardsRepository.findByMobileNumber(mobileNumber).orElseThrow(
+                () -> new ResourceNotFoundException("Card", "mobile number", mobileNumber)
+        );
+
+        cardsRepository.deleteById(cardDetails.getCardId());
+        return true;
+    }
 }
