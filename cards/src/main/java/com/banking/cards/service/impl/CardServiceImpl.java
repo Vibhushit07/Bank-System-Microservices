@@ -1,8 +1,11 @@
 package com.banking.cards.service.impl;
 
 import com.banking.cards.constants.CardsConstants;
+import com.banking.cards.dto.CardsDto;
 import com.banking.cards.entity.Cards;
 import com.banking.cards.exception.CardAlreadyExistException;
+import com.banking.cards.exception.ResourceNotFoundException;
+import com.banking.cards.mapper.CardsMapper;
 import com.banking.cards.repository.CardsRepository;
 import com.banking.cards.service.ICardsService;
 import lombok.AllArgsConstructor;
@@ -38,8 +41,18 @@ public class CardServiceImpl implements ICardsService {
         newCard.setTotalLimit(CardsConstants.NEW_CARD_LIMIT);
         newCard.setAmountUsed(0);
         newCard.setAvailableAmount(CardsConstants.NEW_CARD_LIMIT);
-//        newCard.setCreatedAt(LocalDateTime.now());
-//        newCard.setCreatedBy("ABC");
         return newCard;
+    }
+
+    /**
+     * @param mobileNumber - Input Mobile Number
+     * @return Card Details based on a given mobileNumber
+     */
+    @Override
+    public CardsDto fetchCard(String mobileNumber) {
+        Cards cardDetails = cardsRepository.findByMobileNumber(mobileNumber).orElseThrow(
+                () -> new ResourceNotFoundException("Card", "mobile number", mobileNumber)
+        );
+        return CardsMapper.mapToCardsDto(cardDetails, new CardsDto());
     }
 }
