@@ -35,6 +35,10 @@ public class LoansController {
                 .body(new ResponseDto(LoansConstants.STATUS_201, LoansConstants.MESSAGE_201));
     }
 
+    @Operation(
+            summary = "Fetch Loan Details REST API",
+            description = "REST API to fetch Loan details based on mobile number"
+    )
     @GetMapping("/fetch")
     public ResponseEntity<LoansDto> fetchLoansDetails(@Valid @RequestParam @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits") String mobileNumber) {
         return ResponseEntity
