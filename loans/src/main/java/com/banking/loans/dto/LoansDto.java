@@ -1,4 +1,4 @@
-package com.banking.loans.entity;
+package com.banking.loans.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
