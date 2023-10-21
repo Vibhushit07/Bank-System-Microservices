@@ -117,7 +117,7 @@ public class CardsController {
             )
     })
     @PutMapping("/update")
-    public ResponseEntity<ResponseDto> updateAccountDetails(@Valid @RequestBody CardsDto cardsDto) {
+    public ResponseEntity<ResponseDto> updateCardDetails(@Valid @RequestBody CardsDto cardsDto) {
         if(iCardsService.updateCard(cardsDto)) {
             return ResponseEntity
                     .status(HttpStatus.OK)
