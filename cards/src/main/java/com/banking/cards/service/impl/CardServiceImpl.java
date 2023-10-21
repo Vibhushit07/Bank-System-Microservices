@@ -26,7 +26,7 @@ public class CardServiceImpl implements ICardsService {
     public void createCard(String mobileNumber) {
 
         if(cardsRepository.findByMobileNumber(mobileNumber).isPresent()) {
-            throw new CardAlreadyExistException("Card already registered with given mobileNumber "+mobileNumber);
+            throw new CardAlreadyExistException("Card already registered with given mobileNumber " + mobileNumber);
         }
 
         cardsRepository.save(createNewCard(mobileNumber));
