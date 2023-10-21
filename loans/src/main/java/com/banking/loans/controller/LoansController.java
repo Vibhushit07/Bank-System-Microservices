@@ -63,6 +63,10 @@ public class LoansController {
         }
     }
 
+    @Operation(
+            summary = "Delete Loan Details REST API",
+            description = "REST API to delete Loan based on mobile number"
+    )
     @DeleteMapping("/delete")
     public ResponseEntity<ResponseDto> deleteCard(@Valid @RequestParam @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits") String mobileNumber) {
         if(iLoansService.deleteLoan(mobileNumber)) {
