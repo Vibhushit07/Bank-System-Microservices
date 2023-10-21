@@ -11,7 +11,6 @@ import com.banking.loans.service.ILoansService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -54,5 +53,18 @@ public class LoansServiceImpl implements ILoansService {
         );
 
         return LoansMapper.mapToLoansDto(loansDetail, new LoansDto());
+    }
+
+    /**
+     * @param loansDto - LoansDto Object
+     * @return boolean indicating if the update of the Loan details is successful or not
+     */
+    @Override
+    public boolean updateLoan(LoansDto loansDto) {
+        Loans loansDetail = loansRepository.findByLoanNumber(loansDto.getLoanNumber()).orElseThrow(
+                () -> new ResourceNotFoundException("Loan", "loan number", loansDto.getLoanNumber())
+        );
+        loansRepository.save(LoansMapper.mapToLoans(loansDto, loansDetail));
+        return true;
     }
 }
