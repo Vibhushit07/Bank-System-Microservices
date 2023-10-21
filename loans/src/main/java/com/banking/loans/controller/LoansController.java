@@ -32,6 +32,26 @@ public class LoansController {
             summary = "Create Loan REST API",
             description = "REST API to create new Loan inside Bank"
     )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "HTTP Status CREATED"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "HTTP Status BAD REQUEST",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    })
     @PostMapping("/create")
     public ResponseEntity<ResponseDto> createCards(@Valid @RequestParam @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits") String mobileNumber) {
         iLoansService.createLoan(mobileNumber);
