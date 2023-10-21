@@ -2,6 +2,7 @@ package com.banking.loans.controller;
 
 
 import com.banking.loans.constants.LoansConstants;
+import com.banking.loans.dto.LoansDto;
 import com.banking.loans.dto.ResponseDto;
 import com.banking.loans.service.ILoansService;
 import lombok.AllArgsConstructor;
@@ -9,10 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -28,5 +26,12 @@ public class LoansController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(new ResponseDto(LoansConstants.STATUS_201, LoansConstants.MESSAGE_201));
+    }
+
+    @GetMapping("/fetch")
+    public ResponseEntity<LoansDto> fetchLoansDetails(@RequestParam String mobileNumber) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(iLoansService.fetchLoan(mobileNumber));
     }
 }
