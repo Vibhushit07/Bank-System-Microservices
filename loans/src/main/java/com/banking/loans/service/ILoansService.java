@@ -23,4 +23,11 @@ public interface ILoansService {
      * @return boolean indicating if the update of the Loan details is successful or not
      */
     boolean updateLoan(LoansDto loansDto);
+
+    /**
+     *
+     * @param mobileNumber - Input Mobile Number
+     * @return boolean indicating if delete of the Loan details is successful or not
+     */
+    boolean deleteLoan(String mobileNumber);
 }
