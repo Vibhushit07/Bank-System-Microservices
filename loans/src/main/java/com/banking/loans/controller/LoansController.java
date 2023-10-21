@@ -37,10 +37,15 @@ public class LoansController {
 
     @PutMapping("/update")
     public ResponseEntity<ResponseDto> updateLoansDetails(@RequestBody LoansDto loansDto) {
-        iLoansService.updateLoan(loansDto);
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(new ResponseDto(LoansConstants.STATUS_200, LoansConstants.MESSAGE_200));
+        if(iLoansService.updateLoan(loansDto)) {
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(new ResponseDto(LoansConstants.STATUS_200, LoansConstants.MESSAGE_200));
+        } else {
+            return ResponseEntity
+                    .status(HttpStatus.EXPECTATION_FAILED)
+                    .body(new ResponseDto(LoansConstants.STATUS_417, LoansConstants.MESSAGE_417_UPDATE));
+        }
     }
 
     @DeleteMapping("/delete")
