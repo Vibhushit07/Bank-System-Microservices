@@ -46,6 +46,10 @@ public class LoansController {
                 .body(iLoansService.fetchLoan(mobileNumber));
     }
 
+    @Operation(
+            summary = "Update Loan Details REST API",
+            description = "REST API to update Loan based on loan number"
+    )
     @PutMapping("/update")
     public ResponseEntity<ResponseDto> updateLoansDetails(@RequestBody LoansDto loansDto) {
         if(iLoansService.updateLoan(loansDto)) {
