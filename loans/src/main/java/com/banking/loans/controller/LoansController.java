@@ -2,10 +2,15 @@ package com.banking.loans.controller;
 
 
 import com.banking.loans.constants.LoansConstants;
+import com.banking.loans.dto.ErrorResponseDto;
 import com.banking.loans.dto.LoansDto;
 import com.banking.loans.dto.ResponseDto;
 import com.banking.loans.service.ILoansService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
@@ -67,6 +72,26 @@ public class LoansController {
             summary = "Delete Loan Details REST API",
             description = "REST API to delete Loan based on mobile number"
     )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "HTTP Status NOT FOUND",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    })
     @DeleteMapping("/delete")
     public ResponseEntity<ResponseDto> deleteCard(@Valid @RequestParam @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits") String mobileNumber) {
         if(iLoansService.deleteLoan(mobileNumber)) {
