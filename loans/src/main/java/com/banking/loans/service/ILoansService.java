@@ -16,4 +16,11 @@ public interface ILoansService {
      * @return Loan Details based on a given mobileNumber
      */
     LoansDto fetchLoan(String mobileNumber);
+
+    /**
+     *
+     * @param loansDto - LoansDto Object
+     * @return boolean indicating if the update of the Loan details is successful or not
+     */
+    boolean updateLoan(LoansDto loansDto);
 }
