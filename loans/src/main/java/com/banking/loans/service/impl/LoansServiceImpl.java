@@ -67,4 +67,17 @@ public class LoansServiceImpl implements ILoansService {
         loansRepository.save(LoansMapper.mapToLoans(loansDto, loansDetail));
         return true;
     }
+
+    /**
+     * @param mobileNumber - Input Mobile Number
+     * @return boolean indicating if delete of the Loan details is successful or not
+     */
+    @Override
+    public boolean deleteLoan(String mobileNumber) {
+        Loans loansDetail = loansRepository.findByMobileNumber(mobileNumber).orElseThrow(
+                () -> new ResourceNotFoundException("Loan", "mobile number", mobileNumber)
+        );
+        loansRepository.deleteById(loansDetail.getLoanId());
+        return true;
+    }
 }
