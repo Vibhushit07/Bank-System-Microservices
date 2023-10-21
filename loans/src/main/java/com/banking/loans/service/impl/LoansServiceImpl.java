@@ -1,13 +1,17 @@
 package com.banking.loans.service.impl;
 
 import com.banking.loans.constants.LoansConstants;
+import com.banking.loans.dto.LoansDto;
 import com.banking.loans.entity.Loans;
 import com.banking.loans.exception.LoanAlreadyExistException;
+import com.banking.loans.exception.ResourceNotFoundException;
+import com.banking.loans.mapper.LoansMapper;
 import com.banking.loans.repository.LoansRepository;
 import com.banking.loans.service.ILoansService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -37,5 +41,18 @@ public class LoansServiceImpl implements ILoansService {
         newLoan.setAmountPaid(0);
         newLoan.setOutstandingAmount(LoansConstants.NEW_LOAN_LIMIT);
         return newLoan;
+    }
+
+    /**
+     * @param mobileNumber - Input Mobile Number
+     * @return Loan Details based on a given mobileNumber
+     */
+    @Override
+    public LoansDto fetchLoan(String mobileNumber) {
+        Loans loansDetail = loansRepository.findByMobileNumber(mobileNumber).orElseThrow(
+                () -> new ResourceNotFoundException("Loan", "mobile number", mobileNumber)
+        );
+
+        return LoansMapper.mapToLoansDto(loansDetail, new LoansDto());
     }
 }
