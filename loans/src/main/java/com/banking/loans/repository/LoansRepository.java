@@ -1,9 +1,13 @@
 package com.banking.loans.repository;
 
+import com.banking.loans.entity.Loans;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Optional;
 
 @Repository
-public interface LoansRepository extends CrudRepository<Loans, Long> {
+public interface LoansRepository extends JpaRepository<Loans, Long> {
+
+    Optional<Loans> findByMobileNumber(String mobileNumber);
 }
