@@ -5,6 +5,7 @@ import com.banking.loans.constants.LoansConstants;
 import com.banking.loans.dto.LoansDto;
 import com.banking.loans.dto.ResponseDto;
 import com.banking.loans.service.ILoansService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,10 @@ public class LoansController {
 
     private ILoansService iLoansService;
 
+    @Operation(
+            summary = "Create Loan REST API",
+            description = "REST API to create new Loan inside Bank"
+    )
     @PostMapping("/create")
     public ResponseEntity<ResponseDto> createCards(@Valid @RequestParam @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits") String mobileNumber) {
         iLoansService.createLoan(mobileNumber);
