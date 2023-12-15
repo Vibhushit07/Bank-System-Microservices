@@ -1,0 +1,40 @@
+services:
+  accounts:
+    image: "vibhushit0702/vibhushit0702-accounts:latest"
+    container_name: accounts-ms
+    ports:
+      - "8080:8080"
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    networks:
+      - banking_system
+
+  cards:
+    image: "vibhushit0702/vibhushit0702-cards:latest"
+    container_name: cards-ms
+    ports:
+      - "9000:9000"
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    networks:
+      - banking_system
+
+  loans:
+    image: "vibhushit0702/vibhushit0702-loans:latest"
+    container_name: loans-ms
+    ports:
+      - "8090:8090"
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    networks:
+      - banking_system
+
+networks:
+  banking_system:
+    driver: "bridge"
