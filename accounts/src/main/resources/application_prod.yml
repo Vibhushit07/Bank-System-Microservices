@@ -1,0 +1,16 @@
+spring:
+  config:
+    activate:
+      on-profile: "prod"
+
+build:
+  version: "1.0"
+
+accounts:
+  message: "Welcome to Banking accounts related prod APIs "
+  contactDetails:
+    name: "Vibhushit Singhal - Product Owner"
+    email: "vibhushit@developer.com"
+  onCallSupport:
+    - (444) 555-1234
+    - (444) 523-1345
