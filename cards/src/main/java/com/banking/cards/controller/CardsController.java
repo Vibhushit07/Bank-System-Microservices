@@ -13,7 +13,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +35,12 @@ public class CardsController {
 
     @Value("${build.version}")
     private String buildVersion;
+
+    @Autowired
+    private Environment environment;
+
+//    @Autowired
+//    private AccountsContactInfoDto accountsContactInfoDto;
 
     @Operation(
             summary = "Create Card REST API",
@@ -174,7 +182,7 @@ public class CardsController {
 
     @Operation(
             summary = "Fetch Build information",
-            description = "Fetch Build information that is deployed into accounts microservice"
+            description = "Fetch Build information that is deployed into cards microservice"
     )
     @ApiResponses({
             @ApiResponse(
@@ -192,5 +200,27 @@ public class CardsController {
     @GetMapping("/build-info")
     public ResponseEntity<String> getBuildInfo() {
         return ResponseEntity.status(HttpStatus.OK).body(buildVersion);
+    }
+
+    @Operation(
+            summary = "Fetch Java version",
+            description = "Fetch Java version that is installed into cards microservice"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    })
+    @GetMapping("/java-version")
+    public ResponseEntity<String> getJavaVersion() {
+        return ResponseEntity.status(HttpStatus.OK).body(environment.getProperty("JAVA_HOME"));
     }
 }
