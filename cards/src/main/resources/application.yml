@@ -15,6 +15,9 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  profiles:
+    active:
+      - "prod"
 
 build:
   version: "1.0"
@@ -23,7 +26,7 @@ cards:
   message: "Welcome to Banking cards related local APIs "
   contactDetails:
     name: "Vibhushit Singhal - Developer"
-    email: "dragos@eazybank.com"
+    email: "NA"
   onCallSupport:
-    - (412) 419-3491
-    - (915) 382-1932
+    - "NA"
+    - "NA1"
