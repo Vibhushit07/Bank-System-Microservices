@@ -1,0 +1,16 @@
+spring:
+  config:
+    activate:
+      on-profile: "qa"
+
+build:
+  version: "2.0"
+
+cards:
+  message: "Welcome to Banking cards related QA APIs "
+  contactDetails:
+    name: "Vibhushit Singhal - QA Lead"
+    email: "NA"
+  onCallSupport:
+    - "NA"
+    - "NA1"
