@@ -3,6 +3,7 @@ package com.banking.loans.controller;
 
 import com.banking.loans.constants.LoansConstants;
 import com.banking.loans.dto.ErrorResponseDto;
+import com.banking.loans.dto.LoansContactInfoDto;
 import com.banking.loans.dto.LoansDto;
 import com.banking.loans.dto.ResponseDto;
 import com.banking.loans.service.ILoansService;
@@ -38,6 +39,9 @@ public class LoansController {
 
     @Autowired
     private Environment environment;
+
+    @Autowired
+    private LoansContactInfoDto loansContactInfoDto;
 
     @Operation(
             summary = "Create Loan REST API",
@@ -218,5 +222,27 @@ public class LoansController {
     @GetMapping("/java-version")
     public ResponseEntity<String> getJavaVersion() {
         return ResponseEntity.status(HttpStatus.OK).body(environment.getProperty("JAVA_HOME"));
+    }
+
+    @Operation(
+            summary = "Fetch Contact Info",
+            description = "Fetch Contact Info of developer"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    })
+    @GetMapping("/contact-info")
+    public ResponseEntity<LoansContactInfoDto> getContactInfo() {
+        return ResponseEntity.status(HttpStatus.OK).body(loansContactInfoDto);
     }
 }
