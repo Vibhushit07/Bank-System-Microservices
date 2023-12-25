@@ -2,6 +2,7 @@ package com.banking.cards.controller;
 
 
 import com.banking.cards.constants.CardsConstants;
+import com.banking.cards.dto.CardsContactInfoDto;
 import com.banking.cards.dto.CardsDto;
 import com.banking.cards.dto.ErrorResponseDto;
 import com.banking.cards.dto.ResponseDto;
@@ -39,8 +40,8 @@ public class CardsController {
     @Autowired
     private Environment environment;
 
-//    @Autowired
-//    private AccountsContactInfoDto accountsContactInfoDto;
+    @Autowired
+    private CardsContactInfoDto cardsContactInfoDto;
 
     @Operation(
             summary = "Create Card REST API",
@@ -222,5 +223,27 @@ public class CardsController {
     @GetMapping("/java-version")
     public ResponseEntity<String> getJavaVersion() {
         return ResponseEntity.status(HttpStatus.OK).body(environment.getProperty("JAVA_HOME"));
+    }
+
+    @Operation(
+            summary = "Fetch Contact Info",
+            description = "Fetch Contact Info of developer"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    })
+    @GetMapping("/contact-info")
+    public ResponseEntity<CardsContactInfoDto> getContactInfo() {
+        return ResponseEntity.status(HttpStatus.OK).body(cardsContactInfoDto);
     }
 }
