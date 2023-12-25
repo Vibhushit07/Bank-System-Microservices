@@ -10,7 +10,7 @@ accounts:
   message: "Welcome to Banking accounts related QA APIs "
   contactDetails:
     name: "Vibhushit Singhal - QA Lead"
-    email: "vibhushit@developer.com"
+    email: "NA"
   onCallSupport:
-    - (666) 555-1234
-    - (666) 523-1345
+    - "NA"
+    - "NA1"
