@@ -20,7 +20,7 @@ spring:
       - "prod"
 
 build:
-  version: "1.0"
+  version: "3.0"
 
 cards:
   message: "Welcome to Banking cards related local APIs "
