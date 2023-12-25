@@ -10,7 +10,7 @@ accounts:
   message: "Welcome to Banking accounts related prod APIs "
   contactDetails:
     name: "Vibhushit Singhal - Product Owner"
-    email: "vibhushit@developer.com"
+    email: "NA"
   onCallSupport:
-    - (444) 555-1234
-    - (444) 523-1345
+    - "NA"
+    - "NA1"
