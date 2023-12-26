@@ -1,0 +1,11 @@
+build:
+  version: "3.0"
+
+accounts:
+  message: "Welcome to Banking accounts related local APIs "
+  contactDetails:
+    name: "Vibhushit Singhal - Developer"
+    email: "NA"
+  onCallSupport:
+    - "NA"
+    - "NA1"
