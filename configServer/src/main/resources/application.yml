@@ -1,3 +1,6 @@
+server:
+  port: 8071
+
 #spring.application.name=configserver
 #
 ##spring.profiles.active=native
@@ -7,9 +10,7 @@
 #spring.cloud.config.server.git.uri=https://github.com/Vibhushit07/Banking-Microservice-Config.git
 #spring.cloud.config.server.git.clone-on-start=true
 #spring.cloud.config.server.git.default-label=main
-#
-#server.port=8071
-#
+
 #encrypt.key=vibhushit0702
 #
 #logging.pattern.level=%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]
