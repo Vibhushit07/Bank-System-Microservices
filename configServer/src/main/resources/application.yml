@@ -17,13 +17,14 @@ spring:
 #          search-locations: "classpath:/config"
 #          search-locations: "file:///D://config"
 
+encrypt:
+  key: "banking"
+
 server:
   port: 8071
 
 
 
-#encrypt.key=vibhushit0702
-#
 #logging.pattern.level=%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]
 #
 #management.tracing.enabled=true
