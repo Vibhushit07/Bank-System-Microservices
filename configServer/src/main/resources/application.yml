@@ -2,23 +2,25 @@ spring:
   application:
     name: "configserver"
   profiles:
-    active: native
+    active: git
+#    active: native
   cloud:
     config:
       server:
-        native:
+        git:
+          uri: "https://github.com/Vibhushit07/Banking-Microservice-Config.git"
+          default-label: main
+          timeout: 10
+          clone-on-start: true
+          force-pull: true
+#        native:
 #          search-locations: "classpath:/config"
-          search-locations: "file:///D://config"
+#          search-locations: "file:///D://config"
 
 server:
   port: 8071
 
 
-
-##spring.cloud.config.server.native.search-locations=file:///D://config
-#spring.cloud.config.server.git.uri=https://github.com/Vibhushit07/Banking-Microservice-Config.git
-#spring.cloud.config.server.git.clone-on-start=true
-#spring.cloud.config.server.git.default-label=main
 
 #encrypt.key=vibhushit0702
 #
