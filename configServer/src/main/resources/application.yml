@@ -16,12 +16,23 @@ spring:
 #        native:
 #          search-locations: "classpath:/config"
 #          search-locations: "file:///D://config"
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "guest"
+    password: "guest"
 
 encrypt:
   key: "banking"
 
 server:
   port: 8071
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 
 
