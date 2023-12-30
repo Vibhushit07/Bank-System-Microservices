@@ -10,9 +10,7 @@ services:
       resources:
         limits:
           memory: 700m
-    environment:
-      SPRING_PRROFILES_ACTIVE: default
-      
+
   microservice-configserver-config:
     extends:
       service: microservice-base-config
@@ -21,3 +19,4 @@ services:
         condition: service_completed_successfully
     environment:
       SPRING_CONFIG_IMPORT: "configserver:http://configserver:8071/"
+      SPRING_PRROFILES_ACTIVE: default
