@@ -11,6 +11,8 @@ services:
       timeout: 5s
       retries: 10
       start_period: 10s
+    networks:
+      - banking_system
 
   configserver:
     image: "vibhushit0702/vibhushit0702-configserver:latest"
