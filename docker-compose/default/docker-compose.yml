@@ -41,6 +41,9 @@ services:
     container_name: cards-ms
     ports:
       - "9000:9000"
+    depends_on: 
+      configserver:
+        condition: service_completed_successfully
     deploy:
       resources:
         limits:
