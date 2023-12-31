@@ -34,6 +34,24 @@ services:
       file: common-config.yml
       service: network-deploy-service
 
+  cardsdb:
+    image: mysql
+    container_name: cardsdb
+    ports:
+      - 3308:3308
+    healthcheck:
+      test: ["CMS", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 10s
+    environment:
+      MYSQL_ROOT_PASSWORD: root 
+      MYSQL_DATABASE: cardsdb
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
+
   configserver:
     image: "vibhushit0702/vibhushit0702-configserver:latest"
     container_name: configserver-ms
