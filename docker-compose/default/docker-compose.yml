@@ -16,6 +16,24 @@
   #     service: network-deploy-service
 
 services:
+  accountsdb:
+    image: mysql
+    container_name: accountsdb
+    ports:
+      - 3306:3306
+    healthcheck:
+      test: ["CMS", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 10s
+    environment:
+      MYSQL_ROOT_PASSWORD: root 
+      MYSQL_DATABASE: accountsdb
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
+
   configserver:
     image: "vibhushit0702/vibhushit0702-configserver:latest"
     container_name: configserver-ms
