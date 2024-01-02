@@ -3,18 +3,18 @@ services:
     networks:
       - banking_system
 
-  microservice-db-config:
-    extends:
-      service: network-deploy-service
-    image: mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 10s
-      timeout: 10s
-      retries: 10
-      start_period: 10s
-    environment:
-      MYSQL_ROOT_PASSWORD: root
+  # microservice-db-config:
+  #   extends:
+  #     service: network-deploy-service
+  #   image: mysql
+  #   healthcheck:
+  #     test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+  #     interval: 10s
+  #     timeout: 10s
+  #     retries: 10
+  #     start_period: 10s
+    # environment:
+      # MYSQL_ROOT_PASSWORD: root
 
   microservice-base-config:
     extends:
@@ -29,7 +29,12 @@ services:
       service: microservice-base-config
     depends_on: 
       configserver:
-        condition: service_completed_successfully
+        condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
     environment:
-      SPRING_CONFIG_IMPORT: "configserver:http://configserver:8071/"
+      SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
       SPRING_PRROFILES_ACTIVE: qa
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8070/eureka/
+      # SPRING_DATASOURCE_USERNAME: root
+      # SPRING_DATASOURCE_PASSWORD: root
