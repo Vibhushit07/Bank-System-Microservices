@@ -6,6 +6,8 @@ import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 
+import java.time.LocalDateTime;
+
 @SpringBootApplication
 public class GatewayserverApplication {
 
@@ -18,15 +20,18 @@ public class GatewayserverApplication {
 		return routeLocatorBuilder.routes()
 				.route(path -> path
 						.path("/banking/accounts/**")
-						.filters(filter -> filter.rewritePath("/banking/accounts/(?<segment>.*)", "/${segment}"))
+						.filters(filter -> filter.rewritePath("/banking/accounts/(?<segment>.*)", "/${segment}")
+								.addResponseHeader("X-Response-Time", LocalDateTime.now().toString()))
 						.uri("lb://ACCOUNTS"))  // lb means Load Balancer
 				.route(path -> path
 						.path("/banking/cards/**")
-						.filters(filter -> filter.rewritePath("/banking/cards/(?<segment>.*)", "/${segment}"))
+						.filters(filter -> filter.rewritePath("/banking/cards/(?<segment>.*)", "/${segment}")
+								.addResponseHeader("X-Response-Time", LocalDateTime.now().toString()))
 						.uri("lb://CARDS"))
 				.route(path -> path
 						.path("/banking/loans/**")
-						.filters(filter -> filter.rewritePath("/banking/loans/(?<segment>.*)", "/${segment}"))
+						.filters(filter -> filter.rewritePath("/banking/loans/(?<segment>.*)", "/${segment}")
+								.addResponseHeader("X-Response-Time", LocalDateTime.now().toString()))
 						.uri("lb://LOANS"))
 				.build();
 	}
