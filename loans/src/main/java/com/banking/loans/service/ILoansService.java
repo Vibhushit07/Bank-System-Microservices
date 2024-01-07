@@ -15,7 +15,7 @@ public interface ILoansService {
      * @param mobileNumber - Input Mobile Number
      * @return Loan Details based on a given mobileNumber
      */
-    LoansDto fetchLoan(String mobileNumber);
+    LoansDto fetchLoan(String mobileNumber, String correlationId);
 
     /**
      *
