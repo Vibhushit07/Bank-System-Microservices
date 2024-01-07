@@ -24,4 +24,8 @@ public class FilterUtility {
     public ServerWebExchange setRequestHeaders(ServerWebExchange exchange, String name, String value) {
         return exchange.mutate().request(exchange.getRequest().mutate().header(name, value).build()).build();
     }
+
+    public ServerWebExchange setCorrelationId(ServerWebExchange exchange, String correlationId) {
+        return this.setRequestHeaders(exchange,  CORRELATION_ID, correlationId);
+    }
 }
