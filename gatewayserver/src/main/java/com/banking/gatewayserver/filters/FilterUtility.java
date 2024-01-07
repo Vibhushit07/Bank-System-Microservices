@@ -2,6 +2,7 @@ package com.banking.gatewayserver.filters;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ServerWebExchange;
 
 import java.util.List;
 
@@ -18,5 +19,9 @@ public class FilterUtility {
         } else {
             return null;
         }
+    }
+
+    public ServerWebExchange setRequestHeaders(ServerWebExchange exchange, String name, String value) {
+        return exchange.mutate().request(exchange.getRequest().mutate().header(name, value).build()).build();
     }
 }
