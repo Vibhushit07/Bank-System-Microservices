@@ -1,7 +1,13 @@
 package com.banking.accounts.controller;
 
 import com.banking.accounts.dto.CustomerDetailsDto;
+import com.banking.accounts.dto.ErrorResponseDto;
 import com.banking.accounts.service.ICustomerService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.Pattern;
 import org.apache.hc.core5.http.HttpStatus;
@@ -28,6 +34,23 @@ public class CustomerController {
         this.iCustomerService = iCustomerService;
     }
 
+    @Operation(
+            summary = "Fetch Customer Details REST API",
+            description = "REST API to fetch Customer details based on a mobile number"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    })
     @GetMapping("/fetchCustomerDetails")
     public ResponseEntity<CustomerDetailsDto> fetchCustomerDetails(@RequestParam
                                                                    @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be of 10 digits")
