@@ -49,7 +49,7 @@ public class CardServiceImpl implements ICardsService {
      * @return Card Details based on a given mobileNumber
      */
     @Override
-    public CardsDto fetchCard(String mobileNumber) {
+    public CardsDto fetchCard(String mobileNumber, String correlationId) {
         Cards cardDetails = cardsRepository.findByMobileNumber(mobileNumber).orElseThrow(
                 () -> new ResourceNotFoundException("Card", "mobile number", mobileNumber)
         );
