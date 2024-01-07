@@ -47,7 +47,7 @@ public class LoansServiceImpl implements ILoansService {
      * @return Loan Details based on a given mobileNumber
      */
     @Override
-    public LoansDto fetchLoan(String mobileNumber) {
+    public LoansDto fetchLoan(String mobileNumber, String correlationId) {
         Loans loansDetail = loansRepository.findByMobileNumber(mobileNumber).orElseThrow(
                 () -> new ResourceNotFoundException("Loan", "mobile number", mobileNumber)
         );
