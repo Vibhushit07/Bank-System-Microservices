@@ -69,3 +69,9 @@ info:
     name: "cards"
     description: "Banking Cards Application"
     version: "1.0.0"
+
+logging:
+  level:
+    com:
+      banking:
+        cards: DEBUG
