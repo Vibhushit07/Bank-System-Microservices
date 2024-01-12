@@ -161,7 +161,7 @@ services:
     image: "vibhushit0702/vibhushit0702-gatewayserver:latest"
     container_name: gatewayserver-ms
     ports:
-      - "9000:9000"
+      - "8072:8072"
     depends_on:
       accounts:
         condition: service_healthy
