@@ -22,7 +22,8 @@ public class GatewayserverApplication {
 						.path("/banking/accounts/**")
 						.filters(filter -> filter.rewritePath("/banking/accounts/(?<segment>.*)", "/${segment}")
 								.addResponseHeader("X-Response-Time", LocalDateTime.now().toString())
-								.circuitBreaker(config -> config.setName("accountsCircuitBreaker")))
+								.circuitBreaker(config -> config.setName("accountsCircuitBreaker")
+										.setFallbackUri("forward:/contactSupport")))
 						.uri("lb://ACCOUNTS"))  // lb means Load Balancer
 				.route(path -> path
 						.path("/banking/cards/**")
