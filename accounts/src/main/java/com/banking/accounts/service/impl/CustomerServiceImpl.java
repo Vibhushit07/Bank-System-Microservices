@@ -15,6 +15,7 @@ import com.banking.accounts.service.ICustomerService;
 import com.banking.accounts.service.client.CardsFeignClient;
 import com.banking.accounts.service.client.LoansFeignClient;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -43,11 +44,14 @@ public class CustomerServiceImpl implements ICustomerService {
         CustomerDetailsDto customerDetailsDto = CustomerMapper.mapToCustomerDetailsDto(customer, new CustomerDetailsDto());
         customerDetailsDto.setAccountsDto(AccountsMapper.mapToAccountsDto(accounts, new AccountsDto()));
 
-        CardsDto cardsDto = cardsFeignClient.fetchCardDetails(correlationId, mobileNumber).getBody();
-        LoansDto loansDto = loansFeignClient.fetchLoanDetails(correlationId, mobileNumber).getBody();
+        ResponseEntity<CardsDto> cardsDtoResponseEntity = cardsFeignClient.fetchCardDetails(correlationId, mobileNumber);
+        ResponseEntity<LoansDto> loansDtoResponseEntity = loansFeignClient.fetchLoanDetails(correlationId, mobileNumber);
 
-        customerDetailsDto.setCardsDto(cardsDto);
-        customerDetailsDto.setLoansDto(loansDto);
+        if(cardsDtoResponseEntity != null)
+            customerDetailsDto.setCardsDto(cardsDtoResponseEntity.getBody());
+
+        if(loansDtoResponseEntity != null)
+            customerDetailsDto.setLoansDto(loansDtoResponseEntity.getBody());
 
         return customerDetailsDto;
     }
