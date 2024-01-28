@@ -15,7 +15,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 // https://www.educba.com/docker-push/
 // docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
 // https://github.com/spring-cloud/spring-cloud-stream/issues/2639
-// mvn compiler jib:dockerBuild => docker image build command
+// mvn compile jib:dockerBuild => docker image build command
 
 @SpringBootApplication
 /*@ComponentScans({ @ComponentScan("com.banking.accounts.controller") })
