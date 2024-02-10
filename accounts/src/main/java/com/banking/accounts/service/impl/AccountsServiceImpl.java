@@ -2,6 +2,7 @@ package com.banking.accounts.service.impl;
 
 import com.banking.accounts.constants.AccountsConstants;
 import com.banking.accounts.dto.AccountsDto;
+import com.banking.accounts.dto.AccountsMsgDto;
 import com.banking.accounts.dto.CustomerDto;
 import com.banking.accounts.entity.Accounts;
 import com.banking.accounts.entity.Customer;
@@ -13,6 +14,9 @@ import com.banking.accounts.repository.AccountsRepository;
 import com.banking.accounts.repository.CustomerRepository;
 import com.banking.accounts.service.IAccountsService;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -22,8 +26,10 @@ import java.util.Random;
 @AllArgsConstructor
 public class AccountsServiceImpl implements IAccountsService {
 
+    private static final Logger log = LoggerFactory.getLogger(AccountsServiceImpl.class);
     private AccountsRepository accountsRepository;
     private CustomerRepository customerRepository;
+    private final StreamBridge streamBridge;
 
     /**
      * @param customerDto - CustomerDto Object
@@ -37,8 +43,17 @@ public class AccountsServiceImpl implements IAccountsService {
                     + customerDto.getMobileNumber());
         }
         Customer savedCustomer = customerRepository.save(customer);
+        Accounts savedAccount = accountsRepository.save(createNewAccount(savedCustomer));
 
-        accountsRepository.save(createNewAccount(savedCustomer));
+        sendCommunication(savedAccount, savedCustomer);
+    }
+
+    private void sendCommunication(Accounts accounts, Customer customer) {
+        AccountsMsgDto accountsMsgDto = new AccountsMsgDto(accounts.getAccountNumber(), customer.getName(),
+                customer.getEmail(), customer.getMobileNumber());
+        log.info("Sending communication request for the details: {}", accountsMsgDto);
+        boolean send = streamBridge.send("sendCommunication-out-0", accountsMsgDto);
+        log.info("Is communication request successfully triggered?: {}", send);
     }
 
     /**
