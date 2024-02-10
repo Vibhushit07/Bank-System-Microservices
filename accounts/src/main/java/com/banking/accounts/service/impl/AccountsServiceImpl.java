@@ -135,4 +135,24 @@ public class AccountsServiceImpl implements IAccountsService {
 
         return true;
     }
+
+    /**
+     * @param accountNumber - Long
+     * @return boolean indicating if the update of the communication status is successful or not
+     */
+    @Override
+    public boolean updateCommunication(Long accountNumber) {
+        boolean isUpdated = false;
+        if(accountNumber != null) {
+            Accounts accounts = accountsRepository.findById(accountNumber).orElseThrow(
+                    () -> new ResourceNotFoundException("Account", "Account Number", accountNumber.toString())
+            );
+            accounts.setCommunicationSw(true);
+            accountsRepository.save(accounts);
+            isUpdated = true;
+        }
+        return isUpdated;
+    }
+
+
 }
