@@ -1,21 +1,4 @@
 # services:
-  # rabbit:
-  #   image: rabbitmq:3.12-management
-  #   hostname: rabbitmq
-  #   ports:
-  #     - "5672:5672"
-  #     - "15672:15672"
-  #   healthcheck:
-  #     test: rabbitmq-diagnostics check_port_connectivity
-  #     interval: 10s
-  #     timeout: 5s
-  #     retries: 10
-  #     start_period: 10s
-  #   extends:
-  #     file: common-config.yml
-  #     service: network-deploy-service
-
-# services:
 #   accountsdb:
 #     container_name: accountsdb
 #     ports:
@@ -60,7 +43,46 @@
   #     file: common-config.yml
   #     service: network-deploy-service
 
+# services:
+
+#   rabbit:
+#     image: rabbitmq:3.12-management
+#     hostname: rabbitmq
+#     ports:
+#       - "5672:5672"
+#       - "15672:15672"
+#     healthcheck:
+#       test: rabbitmq-diagnostics check_port_connectivity
+#       interval: 10s
+#       timeout: 5s
+#       retries: 10
+#       start_period: 10s
+#     extends:
+#       file: common-config.yml
+#       service: network-deploy-service
+
 services:
+
+  kafka:
+    image: docker.io/bitnami/kafka:3.6
+    ports:
+      - "9092:9092"
+    volumes:
+      - "kafka_data:/bitnami"
+    environment:
+      # KRaft settings
+      - KAFKA_CFG_NODE_ID=0
+      - KAFKA_CFG_PROCESS_ROLES=controller,broker
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka:9093
+      # Listeners
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
 
   keycloak:
     image: quay.io/keycloak/keycloak:22.0.1
@@ -323,9 +345,14 @@ services:
       timeout: 20s
       retries: 50
       start_period: 10s
+    depends_on:
+      rabbit:
+        condition: service_healthy
     environment:
       SPRING_APPLICATION_NAME: "accounts"
       OTEL_SERVICE_NAME: "accounts"
+      SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS: "kafka:9092"
+      # SPRING_RABBITMQ_HOST: "rabbit"
       # SPRING_DATASOURCE_URL: "jdbc:mysql://accountsdb:3306/accountsdb"
     # depends_on:
       # accountsdb:
@@ -388,6 +415,19 @@ services:
   #   extends:
   #     file: common-config.yml
   #     service: microservice-eurekaserver-config
+
+  message:
+    image: "vibhushit0702/vibhushit0702-message:latest"
+    container_name: message-ms
+    depends_on:
+      rabbit:
+        condition: service_healthy
+    environment:
+      SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS: "kafka:9092"
+      # SPRING_RABBITMQ_HOST: "rabbit"
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
 
   gatewayserver:
     image: "vibhushit0702/vibhushit0702-gatewayserver:latest"
