@@ -16,6 +16,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 // docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.12-management
 // https://github.com/spring-cloud/spring-cloud-stream/issues/2639
 // mvn compile jib:dockerBuild => docker image build command
+// kafka server start commands
+// .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+// .\bin\windows\kafka-server-start.bat .\config\server.properties
 
 @SpringBootApplication
 /*@ComponentScans({ @ComponentScan("com.banking.accounts.controller") })
