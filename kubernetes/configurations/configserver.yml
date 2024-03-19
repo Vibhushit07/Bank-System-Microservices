@@ -30,5 +30,5 @@ spec:
   type: LoadBalancer
   ports:
     - protocol: TCP
-      port: 8071
-      targetPort: 8071
+      port: 8071 # exposed port for outside world
+      targetPort: 8071 # port where container is going to start
