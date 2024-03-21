@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eurekaserver-deployment
+  labels:
+    app: eurekaserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eurekaserver
+  template:
+    metadata:
+      labels:
+        app: eurekaserver
+    spec:
+      containers:
+      - name: eurekaserver
+        image: vibhushit0702/vibhushit0702-eurekaserver
+        ports:
+        - containerPort: 8070
+        env:
+        - name: SPRING_APPLICATION_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: banking-configmap
+              key: EUREKA_APPLICATION_NAME
+        - name: SPRING_CONFIG_IMPORT
+          valueFrom: 
+            configMapKeyRef:
+              name: banking-configmap
+              key: SPRING_CONFIG_IMPORT
